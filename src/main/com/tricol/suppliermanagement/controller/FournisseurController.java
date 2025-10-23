@@ -3,6 +3,7 @@ package com.tricol.suppliermanagement.controller;
 import com.tricol.suppliermanagement.model.FournisseurModel;
 import com.tricol.suppliermanagement.service.FournisseurServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,35 @@ public class FournisseurController {
     public ResponseEntity<FournisseurModel> insert(@RequestBody FournisseurModel fournisseurModel) {
         FournisseurModel savedFournisseur = fournisseurServiceInterface.save(fournisseurModel);
         return ResponseEntity.ok(savedFournisseur);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<FournisseurModel> update(@PathVariable("id") String id , @RequestBody FournisseurModel fournisseurDetails) {
+        Optional<FournisseurModel> existentfournisseur = fournisseurServiceInterface.findById(id);
+        if (existentfournisseur.isPresent()) {
+            FournisseurModel fournisseur = existentfournisseur.get();
+            fournisseur.setICE(fournisseurDetails.getICE());
+            fournisseur.setAdresse(fournisseurDetails.getAdresse());
+            fournisseur.setEmail(fournisseurDetails.getEmail());
+            fournisseur.setSociete(fournisseurDetails.getSociete());
+            fournisseur.setVille(fournisseurDetails.getVille());
+            fournisseur.setContact(fournisseurDetails.getContact());
+
+            FournisseurModel updatedFournisseur = fournisseurServiceInterface.save(fournisseur);
+            return ResponseEntity.ok(updatedFournisseur);
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") String id) {
+        if(fournisseurServiceInterface.findById(id).isPresent()) {
+            fournisseurServiceInterface.deleteById(id);
+            return ResponseEntity.ok("Fournisseur deleted");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Fournisseur with ID " + id + " not found");
     }
 
 }
