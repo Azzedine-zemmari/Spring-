@@ -15,8 +15,11 @@ import java.util.Optional;
 @RequestMapping("/api/v1/fournisseur")
 public class FournisseurController {
 
-    @Autowired  // Inject your service automatically
     private FournisseurServiceInterface fournisseurServiceInterface;
+
+    public void setFournisseurServiceInterface(FournisseurServiceInterface fournisseurServiceInterface) {
+        this.fournisseurServiceInterface = fournisseurServiceInterface;
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<FournisseurModel>> getAllFournisseurs(@RequestParam(value = "societe", required = false) String societe) {

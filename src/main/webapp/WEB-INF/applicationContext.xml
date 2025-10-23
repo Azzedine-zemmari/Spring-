@@ -57,6 +57,10 @@
         <property name="fournisseurRepository" ref="fournisseurRepositoryInterface" />
     </bean>
 
+    <bean id="fournisseurController" class="com.tricol.suppliermanagement.controller.FournisseurController">
+        <property name="fournisseurServiceInterface" ref="fournisseurService"/>
+    </bean>
+
     <!-- (Optional) Transactional AOP advice -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
