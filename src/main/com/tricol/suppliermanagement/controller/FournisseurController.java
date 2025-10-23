@@ -21,17 +21,22 @@ public class FournisseurController {
     @GetMapping("/all")
     public ResponseEntity<List<FournisseurModel>> getAllFournisseurs(@RequestParam(value = "societe", required = false) String societe) {
         if (societe == null || societe.isEmpty()) {
-            return fournisseurServiceInterface.findBySocieteContainingIgnoreCase(societe);
+            List<FournisseurModel> fournisseurModelList = fournisseurServiceInterface.findAll();
+            return ResponseEntity.ok(fournisseurModelList);
         }
-        List<FournisseurModel> fournisseurModelList = fournisseurServiceInterface.findAll();
-        return ResponseEntity.ok(fournisseurModelList);
+            return fournisseurServiceInterface.findBySocieteContainingIgnoreCase(societe);
+    }
+    @GetMapping("/fournisseurs")
+    public ResponseEntity<List<FournisseurModel>> getFournisseursByEndingEmail(@RequestParam(value = "emailEnding" , required = false) String emailEnding) {
+        ResponseEntity<List<FournisseurModel>> fournisseurModelList = fournisseurServiceInterface.findByEmailEndingWith(emailEnding);
+        return fournisseurModelList;
     }
     @GetMapping("/{id}")
     public ResponseEntity<FournisseurModel> getById(@PathVariable("id") String id) {
         Optional<FournisseurModel> fournisseurModel = fournisseurServiceInterface.findById(id);
         return fournisseurModel.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-    
+
 
     @PostMapping("/insert")
     public ResponseEntity<FournisseurModel> insert(@RequestBody FournisseurModel fournisseurModel) {

@@ -13,4 +13,5 @@ public interface  FournisseurServiceInterface {
     void deleteById(String id);
 
     ResponseEntity<List<FournisseurModel>> findBySocieteContainingIgnoreCase(String name);
+    ResponseEntity<List<FournisseurModel>> findByEmailEndingWith(String emailEnding);
 }

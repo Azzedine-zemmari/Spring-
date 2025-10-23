@@ -38,6 +38,14 @@ public class FournisseurService  implements FournisseurServiceInterface {
         }
         return ResponseEntity.notFound().build();
     }
+    @Override
+    public ResponseEntity<List<FournisseurModel>> findByEmailEndingWith(String emailEnding){
+        List<FournisseurModel> result = fournisseurRepository.findByEmailEndingWith(emailEnding);
+        if (!result.isEmpty()) {
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 
 }

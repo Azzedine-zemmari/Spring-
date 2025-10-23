@@ -9,4 +9,5 @@ import java.util.List;
 public interface FournisseurRepositoryInterface extends JpaRepository<FournisseurModel, String> {
 
     List<FournisseurModel> findBySocieteContainingIgnoreCase(@Param("societe") String societe);
+    List<FournisseurModel> findByEmailEndingWith(@Param("emailEnding") String emailEnding);
 }
