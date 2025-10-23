@@ -2,12 +2,14 @@ package com.tricol.suppliermanagement.model;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "fornisseur")
 public class FournisseurModel {
 
     @Id
-    private String id;
+    private String id = UUID.randomUUID().toString();
     private String ICE;
     private String societe;
     private String adresse;

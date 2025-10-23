@@ -22,7 +22,7 @@
         <init-param>
             <param-name>contextConfigLocation</param-name>
             <!-- You can use a separate servlet context file if you want -->
-            <param-value></param-value>
+            <param-value>/WEB-INF/applicationContext.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

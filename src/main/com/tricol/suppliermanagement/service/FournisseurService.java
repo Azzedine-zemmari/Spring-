@@ -14,8 +14,8 @@ public class FournisseurService  implements FournisseurServiceInterface {
     }
 
     @Override
-    public void save(FournisseurModel fournisseurModel) {
-        fournisseurRepository.save(fournisseurModel);
+    public FournisseurModel save(FournisseurModel fournisseurModel) {
+       return fournisseurRepository.save(fournisseurModel);
     }
     @Override
     public Optional<FournisseurModel> findById(String id){
