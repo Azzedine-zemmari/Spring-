@@ -19,7 +19,10 @@ public class FournisseurController {
     private FournisseurServiceInterface fournisseurServiceInterface;
 
     @GetMapping("/all")
-    public ResponseEntity<List<FournisseurModel>> getAllFournisseurs() {
+    public ResponseEntity<List<FournisseurModel>> getAllFournisseurs(@RequestParam(value = "societe", required = false) String societe) {
+        if (societe == null || societe.isEmpty()) {
+            return fournisseurServiceInterface.findBySocieteContainingIgnoreCase(societe);
+        }
         List<FournisseurModel> fournisseurModelList = fournisseurServiceInterface.findAll();
         return ResponseEntity.ok(fournisseurModelList);
     }

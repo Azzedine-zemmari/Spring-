@@ -2,6 +2,7 @@ package com.tricol.suppliermanagement.service;
 
 import com.tricol.suppliermanagement.model.FournisseurModel;
 import com.tricol.suppliermanagement.repository.FournisseurRepositoryInterface;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,14 @@ public class FournisseurService  implements FournisseurServiceInterface {
     @Override
     public void deleteById(String id){
         fournisseurRepository.deleteById(id);
+    }
+    @Override
+    public ResponseEntity<List<FournisseurModel>> findBySocieteContainingIgnoreCase(String name){
+        List<FournisseurModel> result = fournisseurRepository.findBySocieteContainingIgnoreCase(name);
+        if (!result.isEmpty()) {
+            return ResponseEntity.ok(result);
+        }
+        return ResponseEntity.notFound().build();
     }
 
 
